@@ -1,0 +1,76 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+#                      I N S T A L L A T I O N  &  S E T T I N G S                                  #
+#                                                                                                   #
+#    Installation manually:                                                                         #
+#    	                                                                                            #
+#    	• copy "ownhotkeys.template.properties" as "ownhotkeys.properties" into folder:             #
+#           @UserProfileDir & '\AppData\Local\AutoIt v3\SciTE\'                                     #
+#                                                                                                   #
+#    	• in file "SciTEUser.properties" add line:                                                  #
+#           import ownhotkeys                                                                       #
+#                                                                                                   #
+#       • if not exists: copy "shell.dll" in the folder with your Lua scripts                       #
+#           (own folder, i.e. inside USER-DIR recommended)                                          #
+#           shell.dll is needed to call au3-files.                                                  #
+#           Source: http://scite-ru.bitbucket.org/pack/tools/LuaLib/shell.html                      #
+#                                                                                                   #
+#       • be sure, that your Lua script path is added to package.cpath in SciTEStartup.lua          #
+#         Recommended way:                                                                          #
+#         - create own property for your Lua script path in "SciTEUser.properties"                  #
+#           Lua.User.Scripts.Path=C:\YOUR\PATH\LUA\SCRIPTS                                          #
+#         - use a global Lua variable LUA_USER_PATH and add it to your "SciTEStartup.lua" as below  #
+#           (position: top of script)                                                               #
+#                                                                                                   #
+#           local sUserLua = props["Lua.User.Scripts.Path"] .. "\\"                                 #
+#           LUA_USER_PATH = sUserLua .. "\\?.dll;" .. sUserLua .. "\\?\\?.dll;"                     #
+#           ------------------------------------------------------------------------------------    #
+#           package.cpath = LUA_USER_PATH..package.cpath                                            #
+#                                                                                                   #
+#           So you can store dll files as:                                                          #
+#              ..\own_folder\name.dll or                                                            #
+#              ..\own_folder\name\name.dll                                                          #
+#           with access to this from any script.                                                    #
+#                                                                                                   #
+#       • copy "OHKfuncs.lua" and "Ownhotkeys.lua" in your own Lua scripts folder                   #
+#                                                                                                   #
+#       • copy "SciTE_Output.au3" to your user include folder                                       #
+#          Its requiered to send output from called au3-files to SciTE. Replace "ConsoleWrite()"    #
+#          with "_SciTE_Output()" in related au3-files and include "SciTE_Output.au3" there.        #
+#                                                                                                   #
+#       • insert function to load user files in SciTEStartup.lua (behind function LoadLuaFile):     #
+#                                                                                                   #
+#           function LoadUserLuaFile(file)                                                          #
+#           	LoadLuaFile(file, props["Lua.User.Scripts.Path"] .. "\\")                           #
+#           end	-- LoadUserLuaFile()                                                                #
+#                                                                                                   #
+#       • add at the end of SciTEStartup.lua                                                        #
+#           LoadUserLuaFile("Ownhotkeys.lua")                                                       #
+#                                                                                                   #
+#       • now set the properties (indicator-key, caret settings, using hardcoded hotkeys,           #
+#                                 Lua script path, hotkeys)                                         #
+#                                                                                                   #
+#       • Restart SciTE and use your hotkeys. You can open the properties file anytime about        #
+#         menu: Options.                                                                            #
+#                                                                                                   #
+#    Using Own Hotkeys:                                                                             #
+#    	• hit Ctrl + Indicator-key                                                                  #
+#    	• hold pressed the Ctrl-key                                                                 #
+#    	• release Indicator-key only                                                                #
+#    	• hit second key from your sequence                                                         #
+#                                                                                                   #
+#    Write commands for hotkeys as:                                                                 #
+#       Use commands without quotation marks!                                                       #
+#       • "[script.lua] function_lua(param)" from this script                                       #
+#       • "C:\path\script.lua function_lua(param)" from this script                                 #
+#           if script.lua has no path --> encapsulate the script.lua in square braces,              #
+#           the path of the own.mode.func.path property is used than.                               #
+#       • lua-commands as string (it's possible to insert full scripts here)                        #
+#         example (inserts a small Lua function header):                                            #
+#           own.mode.cmd.xx=if props['FileExt']:upper() == 'LUA' then \                             #
+#           editor:InsertText(editor.CurrentPos, ('-'):rep(100) .. \                                #
+#           '\n--[[ \nin...:\t\nout..:\t\n]]\n'..('-'):rep(100)..'\n\n'..('-'):rep(100)) end        #
+#       • "dofile ('C:\\full-path\\file.lua')"                                                      #
+#       • to break command-lines use " \" at the end of text, line is connected during scanning.    #
+#       • own.mode.descript.xx includes the key sequence. Add "|Your-Description" behind this.      #
+#                                                                                                   #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
