@@ -54,7 +54,7 @@ end  --> TableInsert
 ----------------------------------------------------------------------------------------------------
 local ReadHotkeySettings = function(_tLL)
 	local getAllUsedKeys = function()
-		local file = io.open(os.getenv('USERPROFILE')..'\\Properties.User\\ownhotkeys.properties')
+		local file = io.open(os.getenv('USERPROFILE')..'\\AppData\\Local\\AutoIt v3\\SciTE\\ownhotkeys.properties')
 		if file == nil then return nil end
 		local sRead = file:read("*all") file:close()
 		local tKeys = {}
