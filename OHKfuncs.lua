@@ -4,77 +4,77 @@
 --[[-----------------------------------------------------------------------
 				List of Own-Hotkey-Functions
 
-  • AddFuncName
+  â€¢ AddFuncName
 	  Adds at end of every created function in current au3-script: "  ;==> Function_Name"
 
-  • AlignAtEqualSign
+  â€¢ AlignAtEqualSign
 	  Aligns all selected rows at the first rightmost equal sign
 
-  • DebugToConsole
+  â€¢ DebugToConsole
       Debugs variable under cursor with(out) @error, @extended to console output (table style)
 
-  • ExecuteAU3
+  â€¢ ExecuteAU3
       Runs a given au3-file with(out) parameters
 
-  • FindJumpMarks
-	  Search Jump Marks ( §§ ) and writes to console: "line_number   text_from_this_line"
+  â€¢ FindJumpMarks
+	  Search Jump Marks ( Â§Â§ ) and writes to console: "line_number   text_from_this_line"
 
-  • FunctionHeader
+  â€¢ FunctionHeader
 	  Inserts a short function header for current script language (*.au3, *.py, *.lua)
 
-  • GetHotkeyList
+  â€¢ GetHotkeyList
       Writes a list of used Hotkeys to console output
 
-  • GoToLine [hard coded]
+  â€¢ GoToLine [hard coded]
 	  Goes to next/previous line, sets caret to end of line
 
-  • JumpToMark
+  â€¢ JumpToMark
 	  Jumps to the selected mark (where the cursor is in output line)
 
-  • ReloadStartupLua
+  â€¢ ReloadStartupLua
       Reloads the Lua Startup script
 
-  • Repeat
+  â€¢ Repeat
       Repeats the character left from cursor n-times
       Write the character, activate Repeat-Mode, hit numbers for "n", <ENTER> repeats last char n-times (count includes the first char)
 
-  • RunSelectedCode
+  â€¢ RunSelectedCode
       Runs selected au3-code in an temporary file
 
-  • SelectionMoveH [hard coded]
+  â€¢ SelectionMoveH [hard coded]
       Moves selected text in line to left or right
 
-  • SelectionMoveV [hard coded]
+  â€¢ SelectionMoveV [hard coded]
       Moves selected text between lines up or down
 
-  • SelectLine
+  â€¢ SelectLine
       Selects full line from cursor
 
-  • SelectTextInLine
+  â€¢ SelectTextInLine
       Selects line from cursor without leading space characters
 
-  • SelectWord
+  â€¢ SelectWord
       Selects full word with any characters at cursor position. Returns it or copy to clipboard
 
-  • SetSelection
+  â€¢ SetSelection
       Selects word under cursor with(out) leading "$" / with following square braces
 
-  • ShellExecute
+  â€¢ ShellExecute
       Runs a given file with(out) parameters
 
-  • SkipToComment
+  â€¢ SkipToComment
       Sets caret to start of comment in line, if any
 
-  • ToggleAdjacentChars
+  â€¢ ToggleAdjacentChars
       Toggles adjacent characters
 
 ---------------------------------------------------------------------------
 
 	         Hard Coded Functions (use properties to de/activate)
 
-  •  Move Selected Line(s) up/down (native editor functions)
-  •  Move Selected Text In Line up/down/left/right (SelectionMoveV / SelectionMoveH)
-  •  Skip Cursor To Previous/Next Line at line end position (GoToLine)
+  â€¢  Move Selected Line(s) up/down (native editor functions)
+  â€¢  Move Selected Text In Line up/down/left/right (SelectionMoveV / SelectionMoveH)
+  â€¢  Skip Cursor To Previous/Next Line at line end position (GoToLine)
 
 
 -------------------------------------------------------------------------]]
@@ -143,11 +143,11 @@ end  --> AlignAtEqualSign
 
 -------------------------------------------------------------------------
 --[[	DebugToConsole()        --> also recognizes array variables like: $a[$i][0]
-			• debugs variable under cursor, no error output
+			â€¢ debugs variable under cursor, no error output
 		DebugToConsole(true)
-			• debugs variable under cursor, error output
+			â€¢ debugs variable under cursor, error output
 		DebugToConsole(true, true)
-			• debugs variable under cursor, error & extended output
+			â€¢ debugs variable under cursor, error & extended output
  ]]
 -------------------------------------------------------------------------
 OHK.DebugToConsole = function(_fErr, _fExt)
@@ -188,15 +188,15 @@ end  --> ExecuteAU3
 -------------------------------------------------------------------------
 OHK.FindJumpMarks = function()
 	local sOut = ''
-	for pos in editor:GetText():gmatch('()§§') do
+	for pos in editor:GetText():gmatch('()Â§Â§') do
 		line = editor:LineFromPosition(pos)
 		sOut = sOut .. '+> '..tostring(line+1)..(' '):rep(8-#tostring(line))..editor:GetLine(line)
 	end
 	output:ClearAll()
 	if sOut ~= '' then
-		output:AppendText('-> Sprungmarken in Zeilen:\n' .. sOut)
+		output:AppendText('-> Jump marks in lines:\n' .. sOut)
 	else
-		output:AppendText('!> Keine Sprungmarken vorhanden.\n')
+		output:AppendText('!> No jump marks found.\n')
 	end
 end
 -------------------------------------------------------------------------
@@ -418,9 +418,9 @@ end  --> SelectTextInLine
 
 -------------------------------------------------------------------------
 --[[	SelectWord()
-			• selects full word with any characters at cursor position
-			• returns the string or
-			• copies the string to clipboard
+			â€¢ selects full word with any characters at cursor position
+			â€¢ returns the string or
+			â€¢ copies the string to clipboard
 ]]
 -------------------------------------------------------------------------
 OHK.SelectWord = function(_return)
@@ -442,12 +442,12 @@ end --> SelectWord
 
 -------------------------------------------------------------------------
 --[[	SetSelection()
-			• selects variable under cursor: $variable
+			â€¢ selects variable under cursor: $variable
 		SetSelection(false, true)
-			• selects variable under cursor with following square braces: $variable[$i][$j]
-			• builds an debug string from this variable
+			â€¢ selects variable under cursor with following square braces: $variable[$i][$j]
+			â€¢ builds an debug string from this variable
 		SetSelection(true)
-			• selects variable under cursor without leading "$": variable
+			â€¢ selects variable under cursor without leading "$": variable
  ]]
 -------------------------------------------------------------------------
 OHK.SetSelection = function(_part, _brace)
